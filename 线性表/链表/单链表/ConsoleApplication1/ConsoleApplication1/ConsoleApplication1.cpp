@@ -47,7 +47,7 @@ bool Empty1(LinkList L) {
 }
 
 //带头结点单链表取值
-bool GetElem(LinkList L,int i,int &e)
+bool GetElem(LinkList L,int i,int *e)
 {
     LNode* p;
     p = L->next; 
@@ -61,7 +61,7 @@ bool GetElem(LinkList L,int i,int &e)
     {
         return false;
     }
-    e = p->data;
+    *e = p->data;
     return true;
 }
 
@@ -112,7 +112,7 @@ bool ListInsert1(LinkList *L,int i,int e)
     }
     LNode *p;
     int j = 1;
-    p = L;
+    p = *L;
     while (p != NULL && j < i - 1) {
         p = p->next;
         j++;
@@ -131,7 +131,7 @@ bool ListInsert1(LinkList *L,int i,int e)
 bool ListDelete(LinkList *L,int i){
     LNode *p,*q;
     p = (*L)->next;//不带头结点删除这一行
-    j = 1;
+    int j = 1;
     while(p != NULL && j < i-1){
         p = p->next;
         j++;
@@ -168,11 +168,21 @@ void CreateList_R(LinkList *L,int n ){//n为元素的个数
     }
 }
 
+//销毁链表，释放所有结点内存
+void DestroyList(LinkList *L) {
+     LNode *p;
+     while (*L != NULL) {
+         p = *L;
+         *L = (*L)->next;
+         free(p);
+     }
+}
+
 int main()
 {
     LinkList L;
-    InitLIst1(&L);
-    GreateList_H(&L,3);
+    InitList1(&L);
+    CreateList_H(&L,3);
     return 0;
 }
 
