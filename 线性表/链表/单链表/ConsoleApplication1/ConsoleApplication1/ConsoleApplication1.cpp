@@ -130,8 +130,8 @@ bool ListInsert1(LinkList *L,int i,int e)
 //带头结点的删除单链表的第i个结点
 bool ListDelete(LinkList *L,int i){
     LNode *p,*q;
-    p = (*L)->next;//不带头结点删除这一行
-    int j = 1;
+    p = *L;//不带头结点删除这一行
+    int j = 0;
     while(p != NULL && j < i-1){
         p = p->next;
         j++;
