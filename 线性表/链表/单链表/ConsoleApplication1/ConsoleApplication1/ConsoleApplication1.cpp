@@ -16,7 +16,7 @@ bool InitList(LinkList &L) {
 }
 
 //初始化一个带头结点的单链表
-bool InitList1(LinkList& L) {
+bool InitList1(LinkList &L) {
     L = (LNode*)malloc(sizeof(LNode));
     if (L == NULL) {  //分配空间失败
         return false; 
@@ -48,6 +48,7 @@ bool Empty(LinkList &L) {
 //带头结点单链表取值
 bool GetElem(LinkList L,int i,int &e)
 {
+    LNode* p;
     p = L->next; 
     j = 1;
     while(p != NULL && j < i)
@@ -137,10 +138,33 @@ bool ListDelete(LinkList &L,int i){
     if(p == NULL && j > i-1){
         return false;
     }
-    
+    q = p->next;
+    p->next = q->next;
+    free(q);
+    return true;
 }
 
-//后插操作：在p结点之后插入元素e
+//前插法创建单链表(带头)
+void CreateList_H(LinkLIst &L,int n){ //n为元素个数
+    for(int  i = 0;i < n;i++){
+        LNode* p = (LNode*)malloc(sizeof(LNode));
+        p->next = L->next;
+        L->next = p;
+        scanf_s("%d",&p->data);
+    }
+}
+
+//后插法创建单链表(带头)
+void CreateList_R(LinkList &L,int n ){//n为元素的个数
+    LNode* q = L;//q代表最后一个结点的位置
+    for(int i = 0;i < n;i++){
+        LNode* p = (LNode*)malloc(sizeof(LNode));
+        p->next  = NULL;
+        q->next = p;
+        q = p;
+        scanf_s("%d",&p->data);
+    }
+}
 
 int main()
 {
