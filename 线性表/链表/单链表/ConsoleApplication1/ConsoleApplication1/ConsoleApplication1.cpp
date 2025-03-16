@@ -15,6 +15,16 @@ bool InitList(LinkList &L) {
     return true;
 }
 
+//初始化一个带头结点的单链表
+bool InitList1(LinkList& L) {
+    L = (LNode*)malloc(sizeof(LNode));
+    if (L == NULL) {  //分配空间失败
+        return false; 
+    }
+    L->next = NULL;
+    return true;
+}
+
 //判断一个不带头结点的的单链表是否为空
 bool Empty(LinkList &L) {
     if (L == NULL) {
@@ -25,14 +35,42 @@ bool Empty(LinkList &L) {
     }
 }
 
-//初始化一个带头结点的单链表
-bool InitList1(LinkList& L) {
-    L = (LNode*)malloc(sizeof(LNode));
-    if (L == NULL) {
+//判断一个带头结点的的单链表是否为空
+bool Empty(LinkList &L) {
+    if (L->next == NULL) {
+        return true;
+    }
+    else {
         return false;
     }
-    L->next = NULL;
+}
+
+//带头结点单链表取值
+bool GetElem(LinkList L,int i,int &e)
+{
+    p = L->next; 
+    j = 1;
+    while(p != NULL && j < i)
+    {
+        p = p->next;
+        j++;
+    }
+    if(p == NULL && j > i)
+    {
+        return false;
+    }
+    e = p->data;
     return true;
+}
+
+//带头结点的查找
+LNode* LocateElem(LinkList L,int e)
+{
+    p = L->next;//不带头结点删除这一行
+    while(p != NULL && p->data != e){
+        p = p->next;
+    }
+    return p;
 }
 
 //在第i个位置插入元素e（带头结点）
@@ -85,6 +123,21 @@ bool ListInsert1(LinkList& L,int i,int e)
     s->next = p->next;
     p->next = s;
     return true;
+}
+
+//带头结点的删除单链表的第i个结点
+bool ListDelete(LinkList &L,int i){
+    LNode* p,q;
+    p = L->next;//不带头结点删除这一行
+    j = 1;
+    while(p != NULL && j < i-1){
+        p = p->next;
+        j++;
+    }
+    if(p == NULL && j > i-1){
+        return false;
+    }
+    
 }
 
 //后插操作：在p结点之后插入元素e
