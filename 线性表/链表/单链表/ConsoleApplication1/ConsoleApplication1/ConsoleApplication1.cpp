@@ -52,7 +52,7 @@ bool GetElem(LinkList L,int i,int *e)
     LNode* p;
     p = L->next; 
     int j = 1;
-    while(p != NULL && j < i)
+    while(p->next != NULL && j < i)
     {
         p = p->next;
         j++;
