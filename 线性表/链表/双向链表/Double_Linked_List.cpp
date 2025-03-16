@@ -1,9 +1,7 @@
-#include<stdio.h>
-#include <iostream>
+#include <stdio.h>
 #include <stdlib.h>
 //仅需涉及一个方向的指针，双向链表的操作与单链表相同
-typedef struct DuLNode
-{
+typedef struct DuLNode{
   int data;
   struct DuLNode *prior;
   struct DuLNode *next;
@@ -11,19 +9,22 @@ typedef struct DuLNode
 
 //双向链表的插入(带头结点)
 bool ListInsert_DuL(DuLinkList *L,int i,int e){
+  if(i < 1) return false;
   DuLNode *p = *L;
   int j = 0;
-  while(p-> next != NULL && j < i-1){
+  while(p != NULL && j < i-1){
     p = p->next;
     j++;
   }
-  if(p == NULL && j > i-1){
+  if(p == NULL){
     return false;
   }
-  DuLNode *s = (DuLNode*)malloc(sizeof(DuLNoe));
+  DuLNode *s = (DuLNode*)malloc(sizeof(DuLNode));
   s->next = p->next;
   s->prior = p;
-  p->next->prior = s;
+  if(p->next != NULL){
+    p->next->prior = s;
+  }
   p->next = s;
   s->data = e;
   return true;
@@ -31,17 +32,21 @@ bool ListInsert_DuL(DuLinkList *L,int i,int e){
 
 //双向链表的删除（带头结点）
 bool ListDelete_DuL(DuLinkList *L,int i){
-  DuLNode *p = *L;
+  if(i < 1) return false;
+  DuLNode *current = *L;
   int j = 0;
-  whil->next != NULL && j < i-1){
-    p = p->next;
+  while(current != NULL && j < i-1){
+    current = current->next;
     j++;
   }
-  if(p == NULL && j > i-1){
+  if(current == NULL || current->next == NULL){
     return false;
   }
-  p->next = p->next->next;
-  p->next->next->prior = p;
-  free(p->next);
+  DuLNode *target = current->next;
+  current->next = target->next;
+  if(target->next != NULL){
+    target->next->prior = current; 
+  }
+  free(target);
   return true;
 }
