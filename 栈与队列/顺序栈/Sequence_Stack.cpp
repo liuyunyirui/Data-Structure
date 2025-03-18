@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include<stdio,h>
+#include<stdlib.h>
 #define MAXSIZE 100
 
 typedef struct{
@@ -21,7 +21,7 @@ bool InitStack(SqStack *S){
 
 //入栈
 bool Push(SqStack *S,int e){
-  if(S->top - S->base == S.stacksize) return false;
+  if(S->top - S->base == S->stacksize) return false;
   *(S->top) = e;
   S->top++;
   return true;
@@ -37,8 +37,9 @@ bool Pop(SqStack *S,int *e){
 
 //取栈顶元素
 int GetTop(SqStack *S){
-  if(S->top == S->base) return false;
-  return *(S->top-1);
+  if(S->top != S->base){
+    return *(S->top-1);
+  }
 }
 
 int main(){
