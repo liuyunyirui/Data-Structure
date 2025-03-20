@@ -22,7 +22,7 @@ int QueueLength(SqQueue Q){
 
 //入队
 bool EnQueue(SqQueue *Q,int e){
-  if((Q->rear + 1) % MAXSIZE == Q->front) return false;
+  if((Q->rear + 1) % MAXSIZE == Q->front) return false; //队满
   Q->data[Q->rear] = e;
   Q->rear = (Q->rear + 1) % MAXSIZE;
   return true;
@@ -30,7 +30,7 @@ bool EnQueue(SqQueue *Q,int e){
 
 //出队
 bool DeQueue(SqQueue *Q,int *e){
-  if(Q->front == Q->rear) return false;
+  if(Q->front == Q->rear) return false; //队空
   *e =  Q->data[Q->front];
   Q->front = (Q->front + 1) % MAXSIZE;
   return true;
@@ -38,7 +38,7 @@ bool DeQueue(SqQueue *Q,int *e){
 
 //取队头元素
 int GetHead(SqQueue Q){
-  if(Q.front == Q.rear) return -1;
+  if(Q.front == Q.rear) return -1; //队空
   return Q.data[Q.front];
 }
 
