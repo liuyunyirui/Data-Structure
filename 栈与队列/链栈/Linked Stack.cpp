@@ -25,7 +25,7 @@ bool Push(LinkStack *S,int e){
 bool Pop(LinkStack *S,int *e){
   if(*S == NULL) return false;
   StackNode *p = *S;
-  *e = S->data;
+  *e = p->data;
   *S = p->next;
   free(p);
   return true;
@@ -33,9 +33,8 @@ bool Pop(LinkStack *S,int *e){
 
 //取栈顶元素
 int GetTop(LinkStack S){
-  if(S != NULL){
-    return S->data;
-  }
+  if(S == NULL) return -1;
+  return S->data;
 }
 
 // 销毁链栈
