@@ -1,5 +1,5 @@
 #include<stdio.h>
-#include<stdlid.h>
+#include<stdlib.h>
 typedef struct{
   int data;
   struct StackNode *next; 
@@ -7,25 +7,26 @@ typedef struct{
 
 //初始化
 bool InitStack(LinkStack *S){//
-  S = NULL;
+  *S = NULL;
   return true;
 }
 
 //入栈
 bool Push(LinkStack *S,int e){
-  StackNode *p = (int*)malloc(sizeof(int));
+  StackNode *p = (StackNode*)malloc(sizeof(StackNode));
+  if(p == NULL) return false;
   p->data = e;
   p->next = *S;
-  S = p;
+  *S = p;
   return true; 
 }
 
 //出栈
 bool Pop(LinkStack *S,int *e){
-  if(S == NULL) return false;
-  StackNode *p = S;
+  if(*S == NULL) return false;
+  StackNode *p = *S;
   *e = S->data;
-  S = S->next;
+  *S = p->next;
   free(p);
   return true;
 }
