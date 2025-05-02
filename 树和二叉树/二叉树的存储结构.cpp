@@ -1,6 +1,6 @@
 #include<stdio.h>
 //顺序存储结构
-＃define MAXTSIZE 100
+#define MAXTSIZE 100
 typedef int SqBiTree[MAXTSIZE];
 SqBiTree bt;
 
