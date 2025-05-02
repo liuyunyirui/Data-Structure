@@ -81,7 +81,22 @@ bool Pop(SqStack *S,BiTree *e){
 }
 
 //先序遍历的非递归算法
-void
+void PreOrderNonRecursive(BiTree T){
+  SqStack S;
+  InitStack(&S);
+  BiTree p = T；
+  while(p || !StackEmpty(&S)){
+    if(p != NULL){
+      visit(p);
+      push(&S,p);
+      p = p->lchild;
+    }
+    else{
+      p = Pop(&S);
+      p = p->rchild;
+    }
+  }
+}
 
 //中序遍历的非递归算法
 void InOrderNonRecursive(BiTree T){
@@ -99,6 +114,31 @@ void InOrderNonRecursive(BiTree T){
       printf("%d",q->data);
       p = q->rchild;
     }
+  }
+}
+
+//后序遍历的非递归算法
+void PostOrderNonRecursive(BiTree T){
+  Sqstack S;
+  InitStack(&S);
+  BiTree p = T;
+  BiTree q;
+}
+
+//层次遍历
+void LevelOrder(BiTree T){
+  InitQueue(Q)
+  BiTree p;
+  EnQueue(Q,T);
+  while(!IsEmpty(Q){
+    DeQueue(Q,p)；
+    visit(p);
+      if(p->lchild != NULL){
+        EnQueue(Q,p->lchild);
+      }
+      if(p->rchild != NULL){
+        EnQueue(Q,p->rchild);
+      }
   }
 }
 
