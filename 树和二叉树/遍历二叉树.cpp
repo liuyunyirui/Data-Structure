@@ -1,10 +1,26 @@
 #include<stdio.h>
-#inclue<stdlib.h>  
+#include<stdlib.h>  
+#define MAXSIZE 100
+typedef struct{
+  BiTree *base;
+  BiTree *top;
+  int stacksize; //栈可用最大容量
+}SqStack;
 
 typedef struct BiTNode{
   int data;
   struct BiTNode *lchild,*rchild; 
 }BiTNode,*BiTree;
+
+//初始化一个顺序栈
+bool InitStack(SqStack *S){
+  S->base = (BiTree*)malloc(sizeof(BiTree) * MAXSIZE);
+  if(S->base == NULL) return false;
+  S->top = S->base;
+  S->stacksize = MAXSIZE;
+  return true;
+}
+
 //访问结点
 void visit(BiTree T){
   printf("%d",T->data);
@@ -45,6 +61,47 @@ void DestroyTree(BiTree T){
     free(T);
   }
 }
+
+bool StrackEmpty(SqStack *S){
+  return (S->top == S->base);
+}
+
+bool Push(Sqstack *S,BiTree e){
+  if(S->top - S->base == S->stacksize) return false;
+  *(S->top) = e;
+  S->top++;
+  return true;
+}
+
+bool Pop(SqStack *S,BiTree *e){
+  if(StackEmpty(S)) return false;
+  S->top--;
+  *e = *(S->top)；
+  return true;
+}
+
+//先序遍历的非递归算法
+void
+
+//中序遍历的非递归算法
+void InOrderNonRecursive(BiTree T){
+  SqStack S;
+  InitStack(&S);
+  BiTree p = T;
+  BiTree q;
+  while(p || !StackEmpty(&S)){
+    if(p != NULL){
+      Push(&S,p);
+      p = p->lchild;
+    }
+    else{
+      Pop(&S,&q);
+      printf("%d",q->data);
+      p = q->rchild;
+    }
+  }
+}
+
 int main(){
   BiTree root = (BiTree)malloc(sizeof(BiTNode));
   root->data = 1;
