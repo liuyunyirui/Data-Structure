@@ -4,7 +4,7 @@ void Copy(BiTree T,BiTree *NewT){
     *NewT = NULL;
   }
   else{
-    *NewT = (BiTree*)malloc(sizeof(BiTNode));
+    *NewT = (BiTNode*)malloc(sizeof(BiTNode));
     (*NewT)->data = T->data;
     Copy(T->lchild,&((*NewT)->lchild));
     Copy(T->rchild,&((*NewT)->rchild));
