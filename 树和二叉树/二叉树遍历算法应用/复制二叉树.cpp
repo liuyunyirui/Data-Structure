@@ -1,3 +1,4 @@
+＃include<stdio.h>
 //复制二叉树
 void Copy(BiTree T,BiTree *NewT){
   if(T == NULL){
