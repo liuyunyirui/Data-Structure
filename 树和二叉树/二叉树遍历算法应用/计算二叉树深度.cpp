@@ -1,1 +1,10 @@
-
+//计算二叉树深度
+int Depth(BiTree T){
+  if(T == NULL) return 0；
+    else{
+    m = Depth(T->lchild);
+    n = Depth(T->rchild);
+    if(m > n) return (m+1);
+    else return (n+1);
+    }
+}
