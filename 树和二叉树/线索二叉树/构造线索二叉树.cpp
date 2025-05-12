@@ -37,7 +37,7 @@ void InThreading(BiThrTree p){
 }
 
 void InOrderThreading(BiThrTree *Thrt,BiThrTree T){
-  BiThrTree Thrt = (BiThrNode*)malloc(sizeof(BiThrNode)); //建立头结点
+  *Thrt = (BiThrNode*)malloc(sizeof(BiThrNode)); //建立头结点
   Thrt->LTag = 0; //头结点有左孩子，若树非空，则其左孩子为树根
   Thrt->RTag = 1; //头结点的右孩子指针为右线索
   Thrt->rchild = Thrd; //初始化时右指针指向自己 
@@ -53,7 +53,29 @@ void InOrderThreading(BiThrTree *Thrt,BiThrTree T){
     Thrt->rchild = pre; //头结点的右线索指向pre
   }
 }
+/*
+[头结点]
+   ↑
+   | 线索化过程
+   ↓
+根节点 → 左子树线索化 → 当前节点处理 → 右子树线索化
+                     ↖     前驱/后继处理     ↗
+*/
 
+// 测试代码
+int main() {
+    BiThrTree Thrt = NULL;
+    BiThrTree root = CreateNormalTree(); // 需实现普通二叉树创建函数
+    
+    InOrderThreading(&Thrt, root);
+    
+    // 线索遍历验证
+    InOrderTraverse_Thr(Thrt); // 使用之前修正的遍历函数
+    
+    return 0;
+}
+
+/*
 ### 执行流程示例（树结构：A(B,C)）
 ```
       A
@@ -95,3 +117,4 @@ void InOrderThreading(BiThrTree *Thrt,BiThrTree T){
 | C    | 1    | A      | 1    | NULL   |
 
 ---
+*/
