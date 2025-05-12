@@ -36,15 +36,22 @@ void InThreading(BiThrTree p){
   }
 }
 
-// 封装函数（解决初始pre为空的问题）
-void CreateInThread(BiThrTree T) {
-    if (T != NULL) {
-        InThreading(T);
-        // 处理最后一个节点的右线索
-        if (pre->rchild == NULL) {
-            pre->RTag = 1;
-        }
-    }
+void InOrderThreading(BiThrTree *Thrt,BiThrTree T){
+  BiThrTree Thrt = (BiThrNode*)malloc(sizeof(BiThrNode)); //建立头结点
+  Thrt->LTag = 0; //头结点有左孩子，若树非空，则其左孩子为树根
+  Thrt->RTag = 1; //头结点的右孩子指针为右线索
+  Thrt->rchild = Thrd; //初始化时右指针指向自己 
+  if(!T) {
+    Thrt->lchild = Thrt; //若树为空，则左指针也指向自己
+  }  
+  else{
+    Thrt->lchild = T; //头结点的左孩子指向根
+    pre = Thrt; //pre初值指向头结点
+    InThreading(T); //调用函数，对以T为根的二叉树进行中序线索化
+    pre->rchild = Thrt; //函数完成后，pre变为最右结点，令pre的右线索指向头结点
+    pre->RTag = 1; 
+    Thrt->rchild = pre; //头结点的右线索指向pre
+  }
 }
 
 ### 执行流程示例（树结构：A(B,C)）
