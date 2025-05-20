@@ -6,26 +6,44 @@ typedef struct{
 }HTNode,*HuffmanTree;
 
 void Select(HuffmanTree HT,int k,int *s1,int *s2){
-  int min1 = 1;
-  int min2 = 1;
+  *s1 = *s2 = 0;
+  //第一个有效结点s1的下标
   for(int i = 1;i <= k;i++){
     if(HT[i].parent == 0){
-      if(min1 == -1 || HT[i].weight < HT[min1].weight){
-        min1 = i;
-      }
+      *s1 = i;
     }
   }
+  
+  //第二个有效结点s2的下标（必须与s1不同）
+  for(int i = *s1 + 1;i <= k;i++){
+    if(HT[i].parent == 0){
+      *s2 = i;
+    }
+  }
+  
+  //确保*s1 <= *s2
+  if(HT[*s1].weight > HT[*s2].weight){
+    int temp = *s1;
+    *s1 = *s2;
+    *s2 = temp;
+  }
+  
+  //遍历剩余结点
   for(int i = 1;i <= k;i++){
-    if(HT[i].parent == 0 && i != min1){
-      if(min2 == -1 || HT[i].weight < HT[min2].weight){
-        min2 = i;
+    if(HT[i].parent == 0 && i != *s1 && i != *s2){
+      if(HT[i].weight < HT[*s1].weight){
+        *s2 = *s1;
+        *s1 = i;
+      }
+      else if(HT[i].weight < HT[*s2]){
+        *s2 = i;
       }
     }
   }
 }
 
 //n个叶子结点
-bool CreateHuffmanTree(HuffmanTree *HT,int n){
+bool CreateHuffmanTree(HuffmanTree HT,int n){
   if(n <= 1) return false;
   m = 2 * n  - 1; //n个叶子结点的哈夫曼树共有2n－1个结点
   HT = (HTNode*)malloc(sizeof(HTNode)*(m+1)); //从1号单元开始用，所以需要m+1个单元，HT[m]表示根结点
@@ -40,8 +58,9 @@ bool CreateHuffmanTree(HuffmanTree *HT,int n){
   /*---------------初始化结束----------------*/
 
   for(i = n + 1;i <= m;i++){ 
+    int s1,s2;
     //每两个结点构造一次，一共需要构造n-1次
-    Select(*HT,i - 1,s1,s2); //在HT[k](1<=k<=i-1)中选择两个其双亲域为0且权值最小的结点，并返回它们在HT中的下标s1和s2
+    Select(*HT,i - 1,&s1,&s2); //在HT[k](1<=k<=i-1)中选择两个其双亲域为0且权值最小的结点，并返回它们在HT中的下标s1和s2
     HT[s1].parent = i;
     HT[s2].parent = i; //将s1和s2的双亲域由0改1
     HT[i].lchild = s1;
