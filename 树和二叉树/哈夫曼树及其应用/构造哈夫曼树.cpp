@@ -11,6 +11,7 @@ void Select(HuffmanTree HT,int k,int *s1,int *s2){
   for(int i = 1;i <= k;i++){
     if(HT[i].parent == 0){
       *s1 = i;
+      break;
     }
   }
   
@@ -18,6 +19,7 @@ void Select(HuffmanTree HT,int k,int *s1,int *s2){
   for(int i = *s1 + 1;i <= k;i++){
     if(HT[i].parent == 0){
       *s2 = i;
+      break;
     }
   }
   
@@ -28,14 +30,14 @@ void Select(HuffmanTree HT,int k,int *s1,int *s2){
     *s2 = temp;
   }
   
-  //遍历剩余结点
+  //遍历剩余结点更新最小值
   for(int i = 1;i <= k;i++){
     if(HT[i].parent == 0 && i != *s1 && i != *s2){
       if(HT[i].weight < HT[*s1].weight){
         *s2 = *s1;
         *s1 = i;
       }
-      else if(HT[i].weight < HT[*s2]){
+      else if(HT[i].weight < HT[*s2].weight){
         *s2 = i;
       }
     }
@@ -46,7 +48,6 @@ void Select(HuffmanTree HT,int k,int *s1,int *s2){
 bool CreateHuffmanTree(HuffmanTree HT,int n){
   if(n <= 1) return false;
   m = 2 * n  - 1; //n个叶子结点的哈夫曼树共有2n－1个结点
-  HT = (HTNode*)malloc(sizeof(HTNode)*(m+1)); //从1号单元开始用，所以需要m+1个单元，HT[m]表示根结点
   for(i = 1;i <= m;i++){ //将1～m号单元中的双亲，左孩子，右孩子的下标都初始化为0
     HT[i].parent = 0;
     HT[i].lchild = 0;
@@ -67,4 +68,9 @@ bool CreateHuffmanTree(HuffmanTree HT,int n){
     HT[i].rchild = s2; //s1与s2分别作为i的左右孩子
     HT[i].weight = HT[s1].weight + HT[s2].weight; 双亲i的权值等于左右孩子权值的和
   }
+  return true;
+}
+
+int main(){
+    HuffmanTree HT = (HTNode*)malloc(sizeof(HTNode)*(m+1)); //从1号单元开始用，所以需要m+1个单元，HT[m]表示根结点
 }
