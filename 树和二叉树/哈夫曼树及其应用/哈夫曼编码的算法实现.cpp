@@ -7,13 +7,14 @@ typedef char **HuffmanCode; //哈夫曼编码表的存储表示
 //哈夫曼编码左孩子为0，右孩子为1
 void CreateHuffmanCode(HuffmanTree HT,HuffmanCode *HC,int n){ //n个叶子结点
   //从叶子到根逆向求每个字符的哈夫曼编码，存储在编码表HC中
+  if (n <= 1) return;
   int c; //用于记录从叶子结点向上回溯至根结点所经过的结点下标
   int f; //用于指向父结点
   int start;  //start用于记录编码在cd中存放的位置
-  *HC = (char*)malloc(sizeof(char) * (n+1)); //分配存储n个字符编码的编码表空间（从1号下标开始用，所以分配了n+1个）
+  *HC = (char**)malloc(sizeof(char*) * (n+1)); //分配存储n个字符编码的编码表空间（从1号下标开始用，所以分配了n+1个）
   char *cd = (char*)malloc(sizeof(char) * n); //分配临时存放每个字符编码的动态数组空间(用一串编码来表示一个字符，编码的长度不会超过字符的个数n)
   cd[n - 1] = '\0';
-  for(i = 1; i <= n; i++){  //遍历所有叶子结点
+  for(int i = 1; i <= n; i++){  //遍历所有叶子结点
     start = n - 1;  ///start开始指向最后，即编码结束符的位置
     c = i; //保存当前回溯结点i下标
     f = HT[c].parent; //指向当前回溯结点i的父结点下标
@@ -29,8 +30,8 @@ void CreateHuffmanCode(HuffmanTree HT,HuffmanCode *HC,int n){ //n个叶子结点
       c = f;
       f = HT[c].parent; //继续向上回溯
     }
-    (*HC)[i] = (char*)malloc(sizeof(char)*(n - start)); //为第i个字符编码分配空间
-    strcpy(HC[i],*cd[start]); 
+    (*HC)[i] = (char*)malloc(n - start); //为第i个字符编码分配空间
+    strcpy((*HC)[i],*cd[start]); 
   }
   free(cd);  //释放空间
 }
