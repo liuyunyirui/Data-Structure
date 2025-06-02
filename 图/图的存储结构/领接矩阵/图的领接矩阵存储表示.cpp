@@ -28,8 +28,8 @@ bool createUDN(AMGraph *G){
     scanf("%c %c %d",&v1,&v2,&w);  //输入一条边依附的顶点及权值
     i = LocateVex(G,v1);
     j = LocateVex(G,v2); //确定v1,v2在顶点表中的位置
-    G.arcs[i][j] = w;  //边<v1,v2>的权值置为w
-    G.arcs[j][i] = G.arcs[i][j];  //置<v1,v2>的对称边<v2,v1>的权值为w
+    G->arcs[i][j] = w;  //边<v1,v2>的权值置为w
+    G->arcs[j][i] = G.arcs[i][j];  //置<v1,v2>的对称边<v2,v1>的权值为w
   }
   return true;
 }
@@ -40,4 +40,5 @@ int LocateVex(AMGraph *G, VerTexType v){
       return i;
     }
   }
+  return -1;  //未找到
 }
