@@ -42,3 +42,21 @@ int LocateVex(AMGraph *G, VerTexType v){
   }
   return -1;  //未找到
 }
+
+/*
+输入顶点数和边数: 4 5
+输入4个顶点: A B C D
+输入5条边(格式: 顶点1 顶点2 权值):
+A B 2
+A C 5
+B C 1
+B D 3
+C D 4
+
+邻接矩阵:
+    A   B   C   D   
+A | 0   2   5   INF 
+B | 2   0   1   3   
+C | 5   1   0   4   
+D | INF 3   4   0
+*/
