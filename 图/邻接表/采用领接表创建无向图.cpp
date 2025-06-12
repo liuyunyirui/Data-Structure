@@ -48,11 +48,11 @@ void CreateUDG(ALGraph *G){
     ArcNode *p1 = (ArcNode *)malloc(sizeof(ArcNode));  //生成一个新的边结点*p1
     p1->adjvex = j;  //该边所指向的顶点的位置为j
     p1->nextarc = G->vertices[i].firstarc; 
-    G->vertices[i].firstarc = p1;  //将新结点*p1插入顶点v(i)的边表头部  
+    G->vertices[i].firstarc = p1;  //将新结点*p1插入顶点v(i)的边表头部（使用的头插法）  
     ArcNode *p2 = (ArcNode *)malloc(sizeof(ArcNode));  //生成一个新的边结点*p2
     p2->adjvex = i;  //该边所指向的顶点的位置为j
-    p2->nextarc = G->vertices[j].(*firstarc); 
-    G->vertices[j].(*firstarc) = p2;  //将新结点*p2插入顶点v(j)的边表头部 
+    p2->nextarc = G->vertices[j].firstarc; 
+    G->vertices[j].firstarc = p2;  //将新结点*p2插入顶点v(j)的边表头部（使用的头插法） 
   }
 }
 
